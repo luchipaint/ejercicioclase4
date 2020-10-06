@@ -1,0 +1,39 @@
+---
+title: "Mendoza"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio clase 4
+###Lucila Pinto
+
+
+```{r cars}
+library(tidyverse)
+library(polAr)
+
+show_available_elections(viewer = T)
+
+pais <- get_election_data("arg", "presi", "gral", 2003)
+
+mendoza <- pais %>%
+  filter(name_prov == "MENDOZA")
+
+```
+
+```{r cars}
+
+mendoza %>%
+  ungroup() %>% 
+  group_by(listas) %>% 
+  summarise(votos = sum(votos)) %>% 
+  arrange(desc(votos)) %>% 
+  mutate(votos = votos/sum(votos)*100)
+
+```
+
+###En Mendoza, la diferencia entre la primera y la segunda lista fue de:
+#18.2 pp.
